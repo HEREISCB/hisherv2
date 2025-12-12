@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HISHER - Premium Co-Living Spaces. Designed for Him & Her." />
+  <title>HISHER | Premium Co-Living</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <div id="app">
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+      <div class="container nav-container">
+        <a href="#" class="logo">
+          <span class="logo-his">HIS</span><span class="logo-her">HER</span>
+        </a>
+        <button class="mobile-toggle" aria-label="Toggle navigation">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="#spaces">Living Spaces</a></li>
+          <li><a href="#amenities">Amenities</a></li>
+          <li><a href="#usp">Why Us</a></li>
+          <li><a href="#contact" class="btn-nav">Book a Visit</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+      <div class="carousel-container" id="hero-carousel">
+        <div class="carousel-slide active" style="background-image: url('/images/hero.png');"></div>
+        <div class="carousel-slide" style="background-image: url('/images/room.png');"></div>
+        <div class="carousel-slide" style="background-image: url('/images/amenities.png');"></div>
+        <div class="carousel-overlay"></div>
+      </div>
+
+      <div class="hero-content">
+        <p class="hero-tagline">Redefining Urban Living</p>
+        <h1 class="hero-title">
+          <span class="text-white">HIS</span><span class="title-divider">&</span><span class="text-gold">HER</span>
+        </h1>
+
+        <div class="launch-badge">
+          <span class="badge-text">Launching January 2026</span>
+        </div>
+
+        <div class="hero-cta">
+          <a href="#spaces" class="btn-primary">View Residences</a>
+          <a href="#contact" class="btn-outline">Inquire Now</a>
+        </div>
+      </div>
+
+      <div class="scroll-indicator">
+        <div class="mouse"></div>
+        <span>Scroll</span>
+      </div>
+    </header>
+
+    <!-- Spaces Section -->
+    <section id="spaces" class="section spaces-section">
+      <div class="container">
+        <div class="section-header center-text">
+          <span class="section-label">The Residences</span>
+          <h2 class="section-title">Designed for <span class="highlight-his">Him</span> & <span
+              class="highlight-her">Her</span></h2>
+        </div>
+
+        <div class="spaces-showcase">
+          <div class="space-tabs">
+            <button class="space-tab active" data-tab="his">For Him</button>
+            <button class="space-tab" data-tab="her">For Her</button>
+            <button class="space-tab" data-tab="together">Together</button>
+          </div>
+
+          <!-- His Content -->
+          <div class="space-content active" id="his-content">
+            <div class="space-grid">
+              <div class="space-image-wrapper">
+                <img src="/images/room.png" alt="His Room">
+                <div class="image-overlay-border"></div>
+              </div>
+              <div class="space-details">
+                <h3>The Gentleman's Suite</h3>
+                <p>A sanctuary of masculine elegance. Featuring clean lines, robust functionality, and a dedicated
+                  workstation for the modern professional.</p>
+                <ul class="space-features">
+                  <li><i class="fas fa-desktop"></i> Dedicated Workstation</li>
+                  <li><i class="fas fa-tv"></i> 50" Smart TV</li>
+                  <li><i class="fas fa-temperature-low"></i> Climate Control</li>
+                  <li><i class="fas fa-door-open"></i> French Windows</li>
+                </ul>
+                <br>
+                <a href="#contact" class="btn-primary">Reserve Suite</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Her Content -->
+          <div class="space-content" id="her-content">
+            <div class="space-grid">
+              <div class="space-image-wrapper">
+                <img src="/images/room.png" alt="Her Room" style="filter: hue-rotate(320deg) brightness(0.9);">
+                <div class="image-overlay-border"></div>
+              </div>
+              <div class="space-details">
+                <h3>The Lady's Quarters</h3>
+                <p>Elegance meets comfort. A thoughtfully designed space offering privacy, safety, and a touch of luxury
+                  with premium finishes.</p>
+                <ul class="space-features">
+                  <li><i class="fas fa-couch"></i> Plush Seating</li>
+                  <li><i class="fas fa-tv"></i> 50" Smart TV</li>
+                  <li><i class="fas fa-shield-alt"></i> Enhanced Privacy</li>
+                  <li><i class="fas fa-columns"></i> French Windows</li>
+                </ul>
+                <br>
+                <a href="#contact" class="btn-primary">Reserve Suite</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Together Content -->
+          <div class="space-content" id="together-content">
+            <div class="space-grid">
+              <div class="space-image-wrapper">
+                <img src="/images/hero.png" alt="Together Room" style="filter: sepia(0.2) contrast(1.1);">
+                <div class="image-overlay-border"></div>
+              </div>
+              <div class="space-details">
+                <h3>The Duo Suite</h3>
+                <p>Designed for connection. A spacious haven for couples or shared living, featuring ample room for two
+                  without compromising on individual comfort.</p>
+                <ul class="space-features">
+                  <li><i class="fas fa-bed"></i> King Size Bed</li>
+                  <li><i class="fas fa-user-friends"></i> Dual Wardrobes</li>
+                  <li><i class="fas fa-laptop-house"></i> Double Workstation</li>
+                  <li><i class="fas fa-heart"></i> Couples Friendly</li>
+                </ul>
+                <br>
+                <a href="#contact" class="btn-primary">Reserve Suite</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USP Parallax Section -->
+    <section id="usp" class="section usp-section">
+      <div class="usp-parallax-container">
+        <div class="container usp-grid">
+          <div class="usp-card">
+            <div class="usp-icon"><i class="fas fa-building"></i></div>
+            <h3>Iconic Architecture</h3>
+            <p>Western-style elevation that redefines the skyline.</p>
+          </div>
+          <div class="usp-card">
+            <div class="usp-icon"><i class="fas fa-tree"></i></div>
+            <h3>Serene Environs</h3>
+            <p>Nestled amidst lush greenery and tranquil parks.</p>
+          </div>
+          <div class="usp-card">
+            <div class="usp-icon"><i class="fas fa-fingerprint"></i></div>
+            <h3>Advanced Security</h3>
+            <p>Biometric access and 24/7 surveillance.</p>
+          </div>
+          <div class="usp-card">
+            <div class="usp-icon"><i class="fas fa-gem"></i></div>
+            <h3>Curated Lifestyle</h3>
+            <p>A community designed for the ambitious.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section id="amenities" class="section amenities-section">
+      <div class="container">
+        <div class="section-header center-text">
+          <span class="section-label">Experience</span>
+          <h2 class="section-title">Unrivaled Amenities</h2>
+        </div>
+
+        <!-- Horizontal Scroll Carousel -->
+        <div class="amenities-carousel" id="amenities-carousel">
+          <div class="amenity-slide">
+            <img src="/images/amenities.png" alt="Lounge">
+            <div class="slide-content">
+              <h4>Sky Lounge</h4>
+            </div>
+          </div>
+          <div class="amenity-slide">
+            <img src="/images/room.png" alt="Theatre">
+            <div class="slide-content">
+              <h4>Private Cinema</h4>
+            </div>
+          </div>
+          <div class="amenity-slide">
+            <img src="/images/safety.png" alt="Gym">
+            <div class="slide-content">
+              <h4>Fitness Studio</h4>
+            </div>
+          </div>
+          <div class="amenity-slide">
+            <img src="/images/hero.png" alt="Terrace">
+            <div class="slide-content">
+              <h4>Roof Terrace</h4>
+            </div>
+          </div>
+        </div>
+
+        <!-- Minimal Grid -->
+        <div class="amenities-grid-minimal">
+          <div class="minimal-amenity"><i class="fas fa-wifi"></i> <span>High Speed WiFi</span></div>
+          <div class="minimal-amenity"><i class="fas fa-utensils"></i> <span>Gourmet Cafeteria</span></div>
+          <div class="minimal-amenity"><i class="fas fa-tshirt"></i> <span>Laundry Service</span></div>
+          <div class="minimal-amenity"><i class="fas fa-gamepad"></i> <span>Gaming Zone</span></div>
+          <div class="minimal-amenity"><i class="fas fa-user-shield"></i> <span>24/7 Concierge</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Included Section -->
+    <section id="included" class="section included-section">
+      <div class="container">
+        <div class="section-header center-text">
+          <span class="section-label">All Inclusive</span>
+          <h2 class="section-title">Effortless Living</h2>
+        </div>
+        <div class="included-grid">
+          <div class="included-card">
+            <i class="fas fa-chair"></i>
+            <h4>Fully Furnished</h4>
+          </div>
+          <div class="included-card">
+            <i class="fas fa-users"></i>
+            <h4>Community</h4>
+          </div>
+          <div class="included-card">
+            <i class="fas fa-calendar-alt"></i>
+            <h4>Events</h4>
+          </div>
+          <div class="included-card">
+            <i class="fas fa-coffee"></i>
+            <h4>Café Access</h4>
+          </div>
+          <div class="included-card">
+            <i class="fas fa-car"></i>
+            <h4>Parking</h4>
+          </div>
+          <div class="included-card">
+            <i class="fas fa-broom"></i>
+            <h4>Housekeeping</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section faq-section">
+      <div class="container">
+        <div class="section-header center-text">
+          <h2 class="section-title">Inquiries</h2>
+        </div>
+        <div class="faq-container">
+          <div class="faq-item">
+            <button class="faq-question">What does the monthly fee cover?</button>
+            <div class="faq-answer">
+              <p>Your residence fee is all-inclusive, covering rent, utilities, high-speed internet, and access to all
+                health and wellness amenities.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">Is the dining facility vegetarian?</button>
+            <div class="faq-answer">
+              <p>Yes, our gourmet cafeteria serves exclusively vegetarian cuisine, curated for nutrition and taste.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">What are the security protocols?</button>
+            <div class="faq-answer">
+              <p>Residents benefit from biometric access control, 24-hour manned security, and comprehensive CCTV
+                coverage.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+      <div class="container">
+        <div class="footer-logo">
+          <span class="text-white">HIS</span><span class="text-gold">HER</span>
+        </div>
+        <div class="footer-links">
+          <a href="#spaces">Residences</a>
+          <a href="#amenities">Amenities</a>
+          <a href="#usp">Concept</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-meta">
+          <p>&copy; 2025 HISHER. All Rights Reserved.</p>
+          <p>A CBS Business Solution</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
