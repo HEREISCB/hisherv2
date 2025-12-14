@@ -180,26 +180,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ============================================
-    // AMENITIES CAROUSEL - AUTO HORIZONTAL SCROLL
+    // AMENITIES CAROUSEL - PINNED HORIZONTAL SCROLL
     // ============================================
+    const scrollContainer = document.getElementById('amenities-scroll-container');
     const amenitiesCarousel = document.getElementById('amenities-carousel');
-    if (amenitiesCarousel) {
-        let scrollPosition = 0;
-        const scrollStep = 1; // Continuous smooth scroll
-        let autoScroll;
+    const amenitiesWrapper = document.getElementById('amenities-scroll-section');
 
-        // Use a simple continuous scroll loop for smoothness
-        function smoothLoop() {
-            if (!amenitiesCarousel.matches(':hover')) { // Pause on hover logic
-                if (amenitiesCarousel.scrollLeft >= (amenitiesCarousel.scrollWidth - amenitiesCarousel.clientWidth)) {
-                    amenitiesCarousel.scrollLeft = 0;
-                } else {
-                    amenitiesCarousel.scrollLeft += 1;
-                }
-            }
-            requestAnimationFrame(smoothLoop);
+    if (scrollContainer && amenitiesCarousel && amenitiesWrapper) {
+        // Calculate the extra scroll height needed
+        function setupScrollContainer() {
+            const carouselWidth = amenitiesCarousel.scrollWidth;
+            const viewportWidth = window.innerWidth;
+            const scrollDistance = carouselWidth - viewportWidth;
+
+            // Set container height = viewport height + scroll distance needed
+            // This creates the "room" for vertical scrolling that translates to horizontal
+            const containerHeight = window.innerHeight + scrollDistance;
+            scrollContainer.style.height = `${containerHeight}px`;
+
+            return scrollDistance;
         }
-        // requestAnimationFrame(smoothLoop); // Disabled for now, sticking to CSS transitions or manual scroll if preferred
+
+        let maxScrollDistance = setupScrollContainer();
+
+        // Recalculate on resize
+        window.addEventListener('resize', () => {
+            maxScrollDistance = setupScrollContainer();
+        });
+
+        // Use scroll position to control horizontal translation
+        function handleScroll() {
+            const containerRect = scrollContainer.getBoundingClientRect();
+            const containerTop = containerRect.top;
+
+            // Calculate how far we've scrolled into the container
+            // containerTop starts positive (below viewport), goes to 0 (at top), then negative
+            if (containerTop <= 0 && containerTop >= -(maxScrollDistance)) {
+                // We're in the "scroll zone" - translate vertical to horizontal
+                const scrollProgress = Math.abs(containerTop);
+                amenitiesCarousel.style.transform = `translateX(-${scrollProgress}px)`;
+            } else if (containerTop > 0) {
+                // Before the section - reset to start
+                amenitiesCarousel.style.transform = 'translateX(0)';
+            } else {
+                // After the section - stay at end
+                amenitiesCarousel.style.transform = `translateX(-${maxScrollDistance}px)`;
+            }
+        }
+
+        // Listen to scroll
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        // Initial call
+        handleScroll();
     }
 
     // ============================================
