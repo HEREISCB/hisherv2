@@ -280,4 +280,78 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+
+    // ============================================
+    // INQUIRY MODAL
+    // ============================================
+    const inquiryModal = document.getElementById('inquiry-modal');
+    const openModalBtn = document.getElementById('open-inquiry-modal');
+    const closeModalBtn = document.getElementById('close-inquiry-modal');
+    const inquiryForm = document.getElementById('inquiry-form');
+
+    if (inquiryModal && openModalBtn && closeModalBtn) {
+        // Open modal
+        openModalBtn.addEventListener('click', () => {
+            inquiryModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close modal
+        closeModalBtn.addEventListener('click', () => {
+            inquiryModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close on overlay click
+        inquiryModal.addEventListener('click', (e) => {
+            if (e.target === inquiryModal) {
+                inquiryModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && inquiryModal.classList.contains('active')) {
+                inquiryModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    // Form submission
+    if (inquiryForm) {
+        inquiryForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(inquiryForm);
+            const data = Object.fromEntries(formData);
+
+            // For now, show success message (can be connected to backend later)
+            const submitBtn = inquiryForm.querySelector('.btn-submit');
+            const originalText = submitBtn.textContent;
+
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            // Simulate sending (replace with actual API call)
+            setTimeout(() => {
+                submitBtn.textContent = 'Inquiry Sent!';
+                submitBtn.style.background = '#25D366';
+
+                // Reset form
+                setTimeout(() => {
+                    inquiryForm.reset();
+                    inquiryModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 1500);
+            }, 1000);
+
+            console.log('Inquiry submitted:', data);
+        });
+    }
+
 });
