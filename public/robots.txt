@@ -1,0 +1,7 @@
+# Robots.txt for HISHER
+User-agent: *
+Allow: /
+
+# Block admin page
+Disallow: /heyitsmecb.html
+Disallow: /heyitsmecb

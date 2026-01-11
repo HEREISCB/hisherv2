@@ -1,3 +1,4 @@
+import './maintenance.js' // Maintenance mode check - runs first
 import './style.css'
 import './assistant.css'
 import Lenis from 'lenis'

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Block all robots, indexing, and archiving -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />
+    <meta name="bingbot" content="noindex, nofollow, noarchive" />
+    <title>Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        /* Login Container */
+        .login-container {
+            background: rgba(20, 20, 30, 0.9);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 400px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 80px rgba(139, 92, 246, 0.1);
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.5rem;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .login-container input:focus {
+            outline: none;
+            border-color: rgba(139, 92, 246, 0.6);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .login-container input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .error-message {
+            color: #ef4444;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            display: none;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            background: rgba(20, 20, 30, 0.95);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 500px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .admin-panel.visible {
+            display: block;
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .admin-header p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+        }
+
+        /* Status Display */
+        .status-card {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .status-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .status-label {
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .status-indicator.paid {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .status-indicator.unpaid {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-indicator.paid .status-dot {
+            background: #22c55e;
+        }
+
+        .status-indicator.unpaid .status-dot {
+            background: #ef4444;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Toggle Switch */
+        .toggle-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .toggle-section h3 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toggle-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+            max-width: 70%;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 56px;
+            height: 28px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 28px;
+            transition: all 0.4s ease;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            left: 3px;
+            bottom: 3px;
+            width: 22px;
+            height: 22px;
+            background: #fff;
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .toggle-switch input:checked+.toggle-slider {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .toggle-switch input:checked+.toggle-slider::before {
+            transform: translateX(28px);
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-box p {
+            color: rgba(147, 197, 253, 0.9);
+            font-size: 0.75rem;
+            line-height: 1.6;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            display: none;
+        }
+
+        .warning-box.visible {
+            display: block;
+        }
+
+        .warning-box p {
+            color: #fca5a5;
+            font-size: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .warning-box strong {
+            color: #ef4444;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            width: 100%;
+            padding: 0.875rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        /* Hidden from login */
+        .login-container.hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Login Screen -->
+    <div class="login-container" id="loginContainer">
+        <h2>🔒 Admin Access</h2>
+        <form id="loginForm">
+            <input type="password" id="passwordInput" placeholder="Enter password" autocomplete="off" />
+            <button type="submit" class="login-btn">Access Panel</button>
+        </form>
+        <p class="error-message" id="errorMessage">Incorrect password. Try again.</p>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h1>Site Control Panel</h1>
+            <p>HISHER Website Management</p>
+        </div>
+
+        <div class="status-card">
+            <div class="status-row">
+                <span class="status-label">Invoice Status</span>
+                <div class="status-indicator paid" id="statusIndicator">
+                    <span class="status-dot"></span>
+                    <span id="statusText">PAID</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="toggle-section">
+            <h3>Maintenance Mode</h3>
+            <div class="toggle-row">
+                <span class="toggle-text">Enable "Temporarily Unavailable" page overlay</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="maintenanceToggle" />
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <p><strong>When enabled:</strong> The entire website will display a "Temporarily Unavailable" message with a
+                payment issue notification. Visitors won't be able to access any content.</p>
+        </div>
+
+        <div class="warning-box" id="warningBox">
+            <p><strong>⚠️ MAINTENANCE MODE ACTIVE</strong><br>The website is currently showing the unavailable page to
+                all visitors.</p>
+        </div>
+
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <script>
+        // HARDCODED PASSWORD - Change this!
+        const ADMIN_PASSWORD = 'Iamcb007';
+        const STORAGE_KEY = 'hisher_maintenance_mode';
+
+        const loginContainer = document.getElementById('loginContainer');
+        const adminPanel = document.getElementById('adminPanel');
+        const loginForm = document.getElementById('loginForm');
+        const passwordInput = document.getElementById('passwordInput');
+        const errorMessage = document.getElementById('errorMessage');
+        const maintenanceToggle = document.getElementById('maintenanceToggle');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const statusText = document.getElementById('statusText');
+        const warningBox = document.getElementById('warningBox');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        // Check if already logged in (session)
+        const isLoggedIn = sessionStorage.getItem('hisher_admin_logged_in');
+        if (isLoggedIn) {
+            showAdminPanel();
+        }
+
+        // Handle login
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = passwordInput.value;
+
+            if (password === ADMIN_PASSWORD) {
+                sessionStorage.setItem('hisher_admin_logged_in', 'true');
+                showAdminPanel();
+            } else {
+                errorMessage.style.display = 'block';
+                passwordInput.value = '';
+                passwordInput.focus();
+
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+        });
+
+        // Show admin panel
+        function showAdminPanel() {
+            loginContainer.classList.add('hidden');
+            adminPanel.classList.add('visible');
+            loadMaintenanceState();
+        }
+
+        // Load current maintenance state
+        function loadMaintenanceState() {
+            const isMaintenanceMode = localStorage.getItem(STORAGE_KEY) === 'true';
+            maintenanceToggle.checked = isMaintenanceMode;
+            updateUI(isMaintenanceMode);
+        }
+
+        // Update UI based on state
+        function updateUI(isMaintenanceMode) {
+            if (isMaintenanceMode) {
+                statusIndicator.classList.remove('paid');
+                statusIndicator.classList.add('unpaid');
+                statusText.textContent = 'UNPAID';
+                warningBox.classList.add('visible');
+            } else {
+                statusIndicator.classList.remove('unpaid');
+                statusIndicator.classList.add('paid');
+                statusText.textContent = 'PAID';
+                warningBox.classList.remove('visible');
+            }
+        }
+
+        // Handle toggle change
+        maintenanceToggle.addEventListener('change', () => {
+            const isEnabled = maintenanceToggle.checked;
+            localStorage.setItem(STORAGE_KEY, isEnabled.toString());
+            updateUI(isEnabled);
+        });
+
+        // Handle logout
+        logoutBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('hisher_admin_logged_in');
+            loginContainer.classList.remove('hidden');
+            adminPanel.classList.remove('visible');
+            passwordInput.value = '';
+        });
+    </script>
+</body>
+
+</html>
