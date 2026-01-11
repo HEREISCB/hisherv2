@@ -1,0 +1,28 @@
+{
+    "rewrites": [
+        {
+            "source": "/heyitsmecb",
+            "destination": "/heyitsmecb.html"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/heyitsmecb.html",
+            "headers": [
+                {
+                    "key": "X-Robots-Tag",
+                    "value": "noindex, nofollow, noarchive"
+                }
+            ]
+        },
+        {
+            "source": "/heyitsmecb",
+            "headers": [
+                {
+                    "key": "X-Robots-Tag",
+                    "value": "noindex, nofollow, noarchive"
+                }
+            ]
+        }
+    ]
+}

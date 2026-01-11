@@ -1,0 +1,6 @@
+# Add these lines to your existing robots.txt
+# This blocks crawlers from indexing the admin page
+
+User-agent: *
+Disallow: /heyitsmecb.html
+Disallow: /heyitsmecb

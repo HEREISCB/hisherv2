@@ -1,15 +1,25 @@
 /**
- * Maintenance Mode Overlay for HISHER
+ * Maintenance Mode Overlay
  * 
- * This script checks localStorage for maintenance mode and displays 
- * a "Temporarily Unavailable" overlay when enabled.
+ * A standalone, drop-in script that displays a "Temporarily Unavailable" 
+ * page when maintenance mode is enabled via the admin panel.
  * 
- * Control via: /heyitsmecb.html (password protected)
+ * Usage: Add this script to your main HTML file's <head> or import it
+ * 
+ * Configuration:
+ * - STORAGE_KEY: Change this if using on multiple sites
+ * - Customize the HTML/CSS below to match your branding
+ * 
+ * @version 1.0.0
+ * @license MIT
  */
 
 (function () {
     'use strict';
 
+    // ============================================
+    // CONFIGURATION
+    // ============================================
     const STORAGE_KEY = 'hisher_maintenance_mode';
 
     // Check if maintenance mode is enabled
@@ -30,7 +40,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Inter', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
             overflow-y: auto;
             padding: 2rem;
         }
@@ -316,6 +326,7 @@
     if (document.body) {
         document.body.insertBefore(overlay, document.body.firstChild);
     } else {
+        // If body doesn't exist yet, wait for it
         document.addEventListener('DOMContentLoaded', function () {
             document.body.insertBefore(overlay, document.body.firstChild);
         });
@@ -323,14 +334,18 @@
 
     // Hide all other content
     function hideContent() {
-        const appContainer = document.getElementById('app');
+        // Find the main app container or body children
+        const appContainer = document.getElementById('app') || document.getElementById('root') || document.getElementById('__next');
         if (appContainer) {
             appContainer.style.display = 'none';
         }
+
+        // Prevent scrolling
         document.body.style.overflow = 'hidden';
         document.documentElement.style.overflow = 'hidden';
     }
 
+    // Run immediately if possible, otherwise wait for DOM
     if (document.body) {
         hideContent();
     }
@@ -352,15 +367,18 @@
             });
         }
 
+        // Tab switching
         reasonTabs.forEach(function (tab) {
             tab.addEventListener('click', function () {
                 const reason = tab.dataset.reason;
 
+                // Update tabs
                 reasonTabs.forEach(function (t) {
                     t.classList.remove('active');
                 });
                 tab.classList.add('active');
 
+                // Update content
                 document.querySelectorAll('.mm-reason-item').forEach(function (item) {
                     item.classList.remove('active');
                 });
@@ -372,6 +390,7 @@
         });
     }
 
+    // Initialize interactivity when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initInteractivity);
     } else {
