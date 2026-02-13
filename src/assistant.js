@@ -1,5 +1,4 @@
 // AI Assistant Module - Custom Voice & Chat Interface
-import Vapi from '@vapi-ai/web';
 
 const ASSISTANT_ID = 'c0333833-55ce-4899-8602-53890dbaeb74';
 const PUBLIC_KEY = 'a79b139e-f2a6-4bf5-b986-6fc79f24c74e';
@@ -179,6 +178,8 @@ async function startVoiceCall() {
 
     // Initialize Vapi if not already done
     if (!vapi) {
+        // Lazy-load the SDK so it does not bloat the initial bundle.
+        const { default: Vapi } = await import('@vapi-ai/web');
         vapi = new Vapi(PUBLIC_KEY);
         setupVapiEvents();
     }

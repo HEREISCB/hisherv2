@@ -790,8 +790,7 @@ img {
 .usp-parallax-container {
   padding: 140px 0;
   position: relative;
-  background-image: url('/images/elevation/MKR09910.JPG');
-  /* Fallback */
+  background-image: var(--bg-image, none);
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -1464,6 +1463,13 @@ img {
   gap: 20px;
   animation: gallerySlide 40s linear infinite;
   width: fit-content;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .usp-parallax-container {
+    background-attachment: scroll;
+  }
 }
 
 .gallery-slide {
@@ -1501,6 +1507,18 @@ img {
 /* Pause animation on hover */
 .gallery-carousel:hover .gallery-track {
   animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-track {
+    animation: none;
+    transform: none;
+  }
+
+  .gallery-carousel {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 

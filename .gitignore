@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local-only generated assets (do not commit unless intentionally replacing originals)
+public/images/logo/*-md.webp
+public/images/logo/*-lg.webp

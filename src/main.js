@@ -1,27 +1,96 @@
 import './maintenance.js' // Maintenance mode check - runs first
 import './style.css'
 import './assistant.css'
-import Lenis from 'lenis'
 import { initAssistant } from './assistant.js'
+
+const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false;
+const saveData = navigator.connection?.saveData ?? false;
+const supportsWebP = (() => {
+    try {
+        const canvas = document.createElement('canvas');
+        return canvas.toDataURL('image/webp').startsWith('data:image/webp');
+    } catch {
+        return false;
+    }
+})();
 
 // Initialize AI Assistant
 initAssistant();
 
 // ============================================
+// 0. IMAGE PERF (RESPONSIVE BACKGROUNDS)
+// ============================================
+function pickResponsiveUrl(el) {
+    const md = el.getAttribute('data-bg-md');
+    const lg = el.getAttribute('data-bg-lg');
+    const fallback = el.getAttribute('data-bg-fallback');
+
+    if (!supportsWebP) return fallback || null;
+
+    const dpr = window.devicePixelRatio || 1;
+    const vw = Math.max(window.innerWidth || 0, document.documentElement.clientWidth || 0);
+    const approxPixels = vw * dpr;
+
+    if (approxPixels >= 1200 && lg) return lg;
+    return md || lg || fallback || null;
+}
+
+function ensureBgLoaded(el) {
+    if (!el || el.dataset.bgLoaded === '1') return;
+    const url = pickResponsiveUrl(el);
+    if (!url) return;
+
+    if (el.classList.contains('usp-parallax-container')) {
+        el.style.setProperty('--bg-image', `url("${url}")`);
+    } else {
+        el.style.backgroundImage = `url("${url}")`;
+    }
+
+    el.dataset.bgLoaded = '1';
+}
+
+// Load only the active hero slide immediately; defer the rest until needed.
+const activeHeroSlideEarly = document.querySelector('.carousel-slide.active');
+ensureBgLoaded(activeHeroSlideEarly);
+
+// Defer the parallax background until it is near the viewport.
+const uspParallax = document.querySelector('.usp-parallax-container');
+if (uspParallax) {
+    if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries, obs) => {
+            for (const entry of entries) {
+                if (entry.isIntersecting) {
+                    ensureBgLoaded(entry.target);
+                    obs.unobserve(entry.target);
+                }
+            }
+        }, { root: null, rootMargin: '300px 0px', threshold: 0.01 });
+        io.observe(uspParallax);
+    } else {
+        ensureBgLoaded(uspParallax);
+    }
+}
+
+// ============================================
 // 1.3 SMOOTH SCROLLING (LENIS)
 // ============================================
-const lenis = new Lenis({
-    duration: 1.2,        // Controls the smoothness/glide feel
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
-    smoothWheel: true,
-    touchMultiplier: 1.2,
-});
+let lenis = null;
+const enableLenis = !prefersReducedMotion && !saveData && (window.innerWidth >= 769);
+if (enableLenis) {
+    const { default: Lenis } = await import('lenis');
+    lenis = new Lenis({
+        duration: 1.2,        // Controls the smoothness/glide feel
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
+        smoothWheel: true,
+        touchMultiplier: 1.2,
+    });
 
-function raf(time) {
-    lenis.raf(time);
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
     requestAnimationFrame(raf);
 }
-requestAnimationFrame(raf);
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -63,23 +132,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroSlides = document.querySelectorAll('.carousel-slide');
 
     if (heroSection && heroSlides.length > 0) {
-        window.addEventListener('scroll', () => {
-            const scrollPosition = window.pageYOffset;
-            const windowHeight = window.innerHeight;
+        const enableHeroZoom = !prefersReducedMotion && !saveData && (window.innerWidth >= 769);
+        if (enableHeroZoom) {
+            let heroZoomTicking = false;
+            window.addEventListener('scroll', () => {
+                if (heroZoomTicking) return;
+                heroZoomTicking = true;
 
-            if (scrollPosition <= windowHeight) {
-                const percentageSeen = scrollPosition / windowHeight;
-                // 2.2 Guide: --zoom-in-ratio: 1 + (0.002 * percentage)
-                // Implemented via JS transform scale
-                const scale = 1 + (0.05 * percentageSeen);
+                requestAnimationFrame(() => {
+                    const scrollPosition = window.pageYOffset;
+                    const windowHeight = window.innerHeight;
 
-                heroSlides.forEach(slide => {
-                    if (slide.classList.contains('active')) {
-                        slide.style.transform = `scale(${scale})`;
+                    if (scrollPosition <= windowHeight) {
+                        const percentageSeen = scrollPosition / windowHeight;
+                        const scale = 1 + (0.05 * percentageSeen);
+                        const activeSlide = document.querySelector('.carousel-slide.active');
+                        if (activeSlide) activeSlide.style.transform = `scale(${scale})`;
                     }
+
+                    heroZoomTicking = false;
                 });
-            }
-        });
+            }, { passive: true });
+        }
     }
 
 
@@ -90,6 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentSlide = 0;
         const slideInterval = 5000;
 
+        // Prefetch the next slide so transitions don't reveal an empty background.
+        ensureBgLoaded(heroSlides[(currentSlide + 1) % heroSlides.length]);
+
         setInterval(() => {
             // Reset transform of previous slide for cleaner loop
             heroSlides[currentSlide].style.transform = 'scale(1)';
@@ -97,6 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             currentSlide = (currentSlide + 1) % heroSlides.length;
             heroSlides[currentSlide].classList.add('active');
+
+            // Load the slide background only when it becomes active.
+            ensureBgLoaded(heroSlides[currentSlide]);
+            ensureBgLoaded(heroSlides[(currentSlide + 1) % heroSlides.length]);
         }, slideInterval);
     }
 
@@ -209,30 +290,30 @@ document.addEventListener('DOMContentLoaded', () => {
             maxScrollDistance = setupScrollContainer();
         });
 
-        // Use scroll position to control horizontal translation
+        // Use scroll position to control horizontal translation (throttled to rAF).
+        let amenitiesTicking = false;
         function handleScroll() {
-            const containerRect = scrollContainer.getBoundingClientRect();
-            const containerTop = containerRect.top;
+            if (amenitiesTicking) return;
+            amenitiesTicking = true;
 
-            // Calculate how far we've scrolled into the container
-            // containerTop starts positive (below viewport), goes to 0 (at top), then negative
-            if (containerTop <= 0 && containerTop >= -(maxScrollDistance)) {
-                // We're in the "scroll zone" - translate vertical to horizontal
-                const scrollProgress = Math.abs(containerTop);
-                amenitiesCarousel.style.transform = `translateX(-${scrollProgress}px)`;
-            } else if (containerTop > 0) {
-                // Before the section - reset to start
-                amenitiesCarousel.style.transform = 'translateX(0)';
-            } else {
-                // After the section - stay at end
-                amenitiesCarousel.style.transform = `translateX(-${maxScrollDistance}px)`;
-            }
+            requestAnimationFrame(() => {
+                const containerRect = scrollContainer.getBoundingClientRect();
+                const containerTop = containerRect.top;
+
+                if (containerTop <= 0 && containerTop >= -(maxScrollDistance)) {
+                    const scrollProgress = Math.abs(containerTop);
+                    amenitiesCarousel.style.transform = `translateX(-${scrollProgress}px)`;
+                } else if (containerTop > 0) {
+                    amenitiesCarousel.style.transform = 'translateX(0)';
+                } else {
+                    amenitiesCarousel.style.transform = `translateX(-${maxScrollDistance}px)`;
+                }
+
+                amenitiesTicking = false;
+            });
         }
 
-        // Listen to scroll
         window.addEventListener('scroll', handleScroll, { passive: true });
-
-        // Initial call
         handleScroll();
     }
 

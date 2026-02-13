@@ -7,6 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="HISHER - Premium Co-Living Spaces. Designed for Everyone." />
   <title>HISHER | Premium Co-Living</title>
+  <link rel="preload" as="image" href="/images/elevation/MKR00221-lg.webp"
+    imagesrcset="/images/elevation/MKR00221-md.webp 960w, /images/elevation/MKR00221-lg.webp 1600w"
+    imagesizes="100vw">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -21,7 +24,7 @@
     <nav class="navbar" id="navbar">
       <div class="container nav-container">
         <a href="#" class="logo">
-          <img src="/images/logo/Black_logo.png" alt="HISHER" class="logo-img">
+          <img src="/images/logo/Black_logo.png" alt="HISHER" class="logo-img" decoding="async">
         </a>
         <button class="mobile-toggle" aria-label="Toggle navigation">
           <span class="bar"></span>
@@ -42,20 +45,29 @@
     <!-- Hero Section -->
     <header class="hero" id="home">
       <div class="carousel-container" id="hero-carousel">
-        <div class="carousel-slide active" style="background-image: url('/images/elevation/MKR00221.JPG');"></div>
+        <div class="carousel-slide active"
+          data-bg-md="/images/elevation/MKR00221-md.webp"
+          data-bg-lg="/images/elevation/MKR00221-lg.webp"
+          data-bg-fallback="/images/elevation/MKR00221.JPG"></div>
         <div class="carousel-slide"
-          style="background-image: url('/images/room/MKR00254.JPG');"></div>
+          data-bg-md="/images/room/MKR00254-md.webp"
+          data-bg-lg="/images/room/MKR00254-lg.webp"
+          data-bg-fallback="/images/room/MKR00254.JPG"></div>
         <div class="carousel-slide"
-          style="background-image: url('/images/room/Room1.JPG');"></div>
+          data-bg-md="/images/room/Room1-md.webp"
+          data-bg-lg="/images/room/Room1-lg.webp"
+          data-bg-fallback="/images/room/Room1.JPG"></div>
         <div class="carousel-slide"
-          style="background-image: url('/images/elevation/MKR09919.JPG');"></div>
+          data-bg-md="/images/elevation/MKR09919-md.webp"
+          data-bg-lg="/images/elevation/MKR09919-lg.webp"
+          data-bg-fallback="/images/elevation/MKR09919.JPG"></div>
         <div class="carousel-overlay"></div>
       </div>
 
       <div class="hero-content">
         <p class="hero-tagline">Redefining Urban Living</p>
         <div class="hero-logo">
-          <img src="/images/logo/Black_logo.png" alt="HISHER" class="hero-logo-img">
+          <img src="/images/logo/Black_logo.png" alt="HISHER" class="hero-logo-img" decoding="async">
         </div>
 
         <div class="launch-badge">
@@ -87,7 +99,13 @@
           <div class="space-content active" id="unified-content">
             <div class="space-grid">
               <div class="space-image-wrapper">
-                <img src="/images/room/MKR00163.JPG" alt="Premium Residences">
+                <img
+                  src="/images/room/MKR00163-md.webp"
+                  srcset="/images/room/MKR00163-md.webp 960w, /images/room/MKR00163-lg.webp 1600w"
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  alt="Premium Residences"
+                  loading="lazy"
+                  decoding="async">
                 <div class="image-overlay-border"></div>
               </div>
               <div class="space-details">
@@ -121,7 +139,11 @@
 
     <!-- USP Parallax Section -->
     <section id="usp" class="section usp-section">
-      <div class="usp-parallax-container">
+      <div
+        class="usp-parallax-container"
+        data-bg-md="/images/elevation/MKR09910-md.webp"
+        data-bg-lg="/images/elevation/MKR09910-lg.webp"
+        data-bg-fallback="/images/elevation/MKR09910.JPG">
         <div class="container usp-grid usp-grid-expanded">
           <div class="usp-card">
             <div class="usp-icon"><i class="fas fa-building"></i></div>
@@ -198,30 +220,30 @@
       <div class="gallery-carousel-wrapper">
         <div class="gallery-carousel" id="gallery-carousel">
           <div class="gallery-track">
-            <div class="gallery-slide"><img src="/images/room/MKR00138.JPG" alt="Room View 1"></div>
-            <div class="gallery-slide"><img src="/images/Common/MKR00305.JPG" alt="Common Area 1"></div>
-            <div class="gallery-slide"><img src="/images/room/MKR00133.JPG" alt="Room View 2"></div>
-            <div class="gallery-slide"><img src="/images/Common/MKR00301.JPG" alt="Common Area 2"></div>
-            <div class="gallery-slide"><img src="/images/Common/MKR00295.JPG" alt="Common Area 3"></div>
-            <div class="gallery-slide"><img src="/images/elevation/MKR00221.JPG" alt="Building Elevation"></div>
-            <div class="gallery-slide"><img src="/images/Common/MKR00286.JPG" alt="Common Area 4"></div>
-            <div class="gallery-slide"><img src="/images/room/MKR00093.JPG" alt="Room View 3"></div>
-            <div class="gallery-slide"><img src="/images/Common/MKR00281.JPG" alt="Common Area 5"></div>
-            <div class="gallery-slide"><img src="/images/Common/theatre.JPG" alt="Theatre"></div>
-            <div class="gallery-slide"><img src="/images/Common/MKR00279.JPG" alt="Common Area 6"></div>
-            <div class="gallery-slide"><img src="/images/elevation/MKR09919.JPG" alt="Elevation 2"></div>
-            <div class="gallery-slide"><img src="/images/room/MKR00082.JPG" alt="Room View 4"></div>
-            <div class="gallery-slide"><img src="/images/Common/MKR00274.JPG" alt="Common Area 7"></div>
-            <div class="gallery-slide"><img src="/images/Common/MKR00270.JPG" alt="Common Area 8"></div>
-            <div class="gallery-slide"><img src="/images/room/MKR00107.JPG" alt="Room View 1"></div>
-            <div class="gallery-slide"><img src="/images/Common/MKR00249.JPG" alt="Common Area 1"></div>
-            <div class="gallery-slide"><img src="/images/room/Room1.JPG" alt="Room View 2"></div>
-            <div class="gallery-slide"><img src="/images/Common/MKR00232.JPG" alt="Common Area 2"></div>
-            <div class="gallery-slide"><img src="/images/Common/MKR00211.JPG" alt="Common Area 3"></div>
-            <div class="gallery-slide"><img src="/images/elevation/MKR00264.JPG" alt="Building Elevation"></div>
-            <div class="gallery-slide"><img src="/images/Common/MKR00205.JPG" alt="Common Area 4"></div>
-            <div class="gallery-slide"><img src="/images/room/MKR00163.JPG" alt="Room View 3"></div>
-            <div class="gallery-slide"><img src="/images/Common/MKR00204.JPG" alt="Common Area 5"></div>
+            <div class="gallery-slide"><img src="/images/room/MKR00138-md.webp" srcset="/images/room/MKR00138-md.webp 960w, /images/room/MKR00138-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Room View 1" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/MKR00305-md.webp" srcset="/images/Common/MKR00305-md.webp 960w, /images/Common/MKR00305-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Common Area 1" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/room/MKR00133-md.webp" srcset="/images/room/MKR00133-md.webp 960w, /images/room/MKR00133-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Room View 2" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/MKR00301-md.webp" srcset="/images/Common/MKR00301-md.webp 960w, /images/Common/MKR00301-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Common Area 2" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/MKR00295-md.webp" srcset="/images/Common/MKR00295-md.webp 960w, /images/Common/MKR00295-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Common Area 3" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/elevation/MKR00221-md.webp" srcset="/images/elevation/MKR00221-md.webp 960w, /images/elevation/MKR00221-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Building Elevation" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/MKR00286-md.webp" srcset="/images/Common/MKR00286-md.webp 960w, /images/Common/MKR00286-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Common Area 4" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/room/MKR00093-md.webp" srcset="/images/room/MKR00093-md.webp 960w, /images/room/MKR00093-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Room View 3" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/MKR00281-md.webp" srcset="/images/Common/MKR00281-md.webp 960w, /images/Common/MKR00281-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Common Area 5" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/theatre-md.webp" srcset="/images/Common/theatre-md.webp 960w, /images/Common/theatre-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Theatre" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/MKR00279-md.webp" srcset="/images/Common/MKR00279-md.webp 960w, /images/Common/MKR00279-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Common Area 6" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/elevation/MKR09919-md.webp" srcset="/images/elevation/MKR09919-md.webp 960w, /images/elevation/MKR09919-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Elevation 2" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/room/MKR00082-md.webp" srcset="/images/room/MKR00082-md.webp 960w, /images/room/MKR00082-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Room View 4" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/MKR00274-md.webp" srcset="/images/Common/MKR00274-md.webp 960w, /images/Common/MKR00274-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Common Area 7" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/MKR00270-md.webp" srcset="/images/Common/MKR00270-md.webp 960w, /images/Common/MKR00270-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Common Area 8" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/room/MKR00107-md.webp" srcset="/images/room/MKR00107-md.webp 960w, /images/room/MKR00107-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Room View 1" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/MKR00249-md.webp" srcset="/images/Common/MKR00249-md.webp 960w, /images/Common/MKR00249-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Common Area 1" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/room/Room1-md.webp" srcset="/images/room/Room1-md.webp 960w, /images/room/Room1-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Room View 2" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/MKR00232-md.webp" srcset="/images/Common/MKR00232-md.webp 960w, /images/Common/MKR00232-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Common Area 2" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/MKR00211-md.webp" srcset="/images/Common/MKR00211-md.webp 960w, /images/Common/MKR00211-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Common Area 3" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/elevation/MKR00264-md.webp" srcset="/images/elevation/MKR00264-md.webp 960w, /images/elevation/MKR00264-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Building Elevation" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/MKR00205-md.webp" srcset="/images/Common/MKR00205-md.webp 960w, /images/Common/MKR00205-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Common Area 4" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/room/MKR00163-md.webp" srcset="/images/room/MKR00163-md.webp 960w, /images/room/MKR00163-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Room View 3" loading="lazy" decoding="async"></div>
+            <div class="gallery-slide"><img src="/images/Common/MKR00204-md.webp" srcset="/images/Common/MKR00204-md.webp 960w, /images/Common/MKR00204-lg.webp 1600w" sizes="(max-width: 480px) 240px, (max-width: 768px) 280px, (max-width: 1024px) 350px, 400px" alt="Common Area 5" loading="lazy" decoding="async"></div>
           </div>
         </div>
       </div>
@@ -303,7 +325,7 @@
           <!-- Column 1: Business Details -->
           <div class="footer-column">
             <div class="footer-logo-new">
-              <img src="/images/logo/Black_logo.png" alt="HISHER" class="footer-logo-img">
+              <img src="/images/logo/Black_logo.png" alt="HISHER" class="footer-logo-img" decoding="async">
             </div>
             <h4 class="footer-company">CBS Living Solutions</h4>
             <p class="footer-address">
